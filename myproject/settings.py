@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-qw90a-!$vvuh^di$1a6b*s2opqsf99kvgyl_l!6bl2)5v@!^(+
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['arkoapp.herokuapp.com/ ']
+ALLOWED_HOSTS = ['arkoapp.herokuapp.com']
 
 
 # Application definition
@@ -142,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEBUG = False
 
 try:
-    from config.local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
 
