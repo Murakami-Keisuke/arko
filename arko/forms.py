@@ -1,5 +1,5 @@
 from dataclasses import field, fields
-from tkinter import Widget
+# from tkinter import Widget
 from turtle import textinput
 from django import forms
 from django.forms import ModelForm, BaseModelFormSet
