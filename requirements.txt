@@ -17,3 +17,4 @@ psycopg2==2.9.3
 setuptools==60.9.3; python_version >= '3.7'
 sqlparse==0.4.2; python_version >= '3.5'
 whitenoise==6.0.0; python_version >= '3.7'
+dj-static==0.0.6
