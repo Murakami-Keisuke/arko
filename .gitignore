@@ -1,4 +1,4 @@
 staticfiles
 myproject/local_settings.py
 db.sqlite3
-arko/static/arko/js/node_modules/
+arko/static/arko/js/node_modules
