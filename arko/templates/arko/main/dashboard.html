@@ -1,0 +1,34 @@
+{% extends 'arko/main/base.html' %}
+
+{% block content %}
+<div class="w-100 " style="padding-bottom: 50px;padding-top:80px;">
+    <div class="card border-secondary mb-3">
+        <div class="card-header" style='background-color:#7FC8A9;'>あなたのグループ</div>
+        <div class="card-body">
+          <h5 class="card-title">{{arkogroup}}</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+        </div>
+    </div>
+    <div class="card border-secondary mb-3">
+        <div class="card-header" style='background-color:#7FC8A9;'>あなたのユーザー情報</div>
+        <div class="card-body">
+          <h5 class="card-title">{{user.username}}</h5>
+          <p class="card-text">権限:  {{perm}}</p>
+        </div>
+    </div>
+    <span class="fs-5">最近の履歴</span>
+    {% for i in history %}
+    <div style="
+      margin:5px;
+      padding:10px;
+      border:1px lightgray solid;
+      border-radius:5px;">
+    <b>{{i.content}}</b> <br>
+    {{i.value}}
+    </div>
+    {% empty %}
+    <p>まだ履歴はありません。</p>
+    {% endfor %}
+    
+</div>
+{% endblock %}

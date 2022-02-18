@@ -1,0 +1,215 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'arko/css/setting.css' %}">
+{% endblock %}
+
+
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+          <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+          <li class="breadcrumb-item">グループ設定</li>
+          <li class="breadcrumb-item active" aria-current="page">コンテンツ</li>
+        </ol>
+      </nav>
+</div>
+<div class="float-start ps-3" style="width: calc(100% - 200px);">
+    <div class="main_wrapper">
+        <h3 class="fs-3">ブロック</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input class="id_input" type="hidden" name="formset_block" value="{{arkogroup}}">
+            {{newform}}
+            <input class="btn btn-outline-primary btn-sm m-2 addbtn" type="button" name="add_newone" value="コンテンツを追加">
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="formset_block" value="{{arkogroup}}">
+            {{ blockforms.management_form }}
+            <input class="btn btn-outline-primary btn-sm mb-2 ms-2 edit_btn" type="button" name="savebtn" value="編集する">
+            <span class="DnD ms-2">ドラッグ&ドロップで並べ替え</span>
+            <ul style="padding:0;list-style: none;">
+                {% for blockform in blockforms %}
+
+                <li class="drag-list valid_list" id="block_{{blockform.id.value}}" style="border-top:0;"
+                    draggable="true">
+                    <div class="card_wrapper">
+                        <a href="{% url 'group_top' arkogroup blockform.id.value %}" class="card_link">
+                            <div class="card_elm">
+                                <div class="fs-5">
+                                    <input type="checkbox" name="id_check" value="{{blockform.id.value}}">
+                                    {{blockform.id}}
+                                    {{blockform.sort_no}}
+                                    {{ blockform.name }}
+                                </div>
+                                {{blockform.comment}}
+                                <p class="edit_confirm">
+                                    {{blockform.DELETE|add_class:"form-check-input"}}
+                                    <label class="form-check-label" for="flexCheckDefault">削除する</label>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+
+                {% empty %}
+                <h5>まだコンテンツがありません</h5>
+                {% endfor %}
+                <li class="drag-list" id="for_sort" style="border:0;list-style-type:none;height: 50px;;">&nbsp;</li>
+            </ul>
+        </form>
+    </div>
+
+
+    <div class="main_wrapper">
+        <h3 class="fs-3">カード</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input class="id_input" type="hidden" name="formset_card" id="block_id" value="{{block_id}}">
+            {{newform}}
+            <input class="btn btn-outline-primary btn-sm m-2 addbtn" type="button" name="add_newone" value="コンテンツを追加">
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="formset_card" value="{{block_id}}">
+            {{ cardforms.management_form }}
+            <input class="btn btn-outline-primary btn-sm mb-2 ms-2 edit_btn" type="button" name="savebtn" value="編集する">
+            <span class="DnD ms-2">ドラッグ&ドロップで並べ替え</span>
+            <ul style="padding:0;list-style: none;">
+                {% for cardform in cardforms %}
+
+                <li class="drag-list valid_list" id="card_{{cardform.id.value}}" style="border-top:0;" draggable="true">
+                    <div class="card_wrapper">
+                        <a href="{% url 'group_top' arkogroup block_id cardform.id.value %}" class="card_link">
+                            <div class="card_elm">
+                                <div class="fs-5">
+                                    <input type="checkbox" name="id_check" value="{{cardform.id.value}}">
+                                    {{cardform.id}}
+                                    {{cardform.sort_no}}
+                                    {{ cardform.name }}
+                                </div>
+                                {{cardform.comment}}
+                                {{cardform.address}}
+                                <p class="edit_confirm">
+                                    {{cardform.DELETE|add_class:"form-check-input"}}
+                                    <label class="form-check-label" for="flexCheckDefault">削除する</label>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+
+                {% empty %}
+                <h5>まだコンテンツがありません</h5>
+                {% endfor %}
+                <li class="drag-list" id="for_sort" style="border:0;list-style-type:none;height: 50px;;">&nbsp;</li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="main_wrapper main_room_wrapper">
+        <h3 class="fs-3">ルーム</h3>
+        <form method="post">
+            {% csrf_token %}
+            <input class="id_input" type="hidden" name="formset_room" id="card_id" value="{{card_id}}">
+            {{newform}}
+            <input class="btn btn-outline-primary btn-sm m-2 addbtn" type="button" name="add_newone" value="コンテンツを追加">
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="formset_room" value="{{card_id}}">
+            {{ roomforms.management_form }}
+            <input class="btn btn-outline-primary btn-sm mb-2 ms-2 edit_btn" type="button" name="savebtn" value="編集する">
+            <span class="DnD ms-2">ドラッグ&ドロップで並べ替え</span>
+            <ul style="padding:0;list-style: none;">
+                {% for roomform in roomforms %}
+
+                <li class="drag-list valid_list" id="room_{{roomform.id.value}}" style="border-top:0;" draggable="true">
+                    <div class="room_wrapper">
+                        <!-- <a href="{% url 'group_top' arkogroup block_id card_id %}" class="card_link"> -->
+                            <div class="card_elm">
+                                <div class="fs-5">
+                                    <input type="checkbox" name="id_check" value="{{roomform.id.value}}">
+                                    {{roomform.id}}
+                                    {{roomform.sort_no}}
+                                    {{ roomform.name }}
+                                </div>
+                                {{roomform.comment}}
+                                {{roomform.stat}}
+                                <p class="edit_confirm">
+                                    {{roomform.DELETE|add_class:"form-check-input"}}
+                                    <label class="form-check-label" for="flexCheckDefault">削除する</label>
+                                </p>
+                            </div>
+                        <!-- </a> -->
+                    </div>
+                </li>
+
+                {% empty %}
+                <h5>まだコンテンツがありません</h5>
+                {% endfor %}
+                <li class="drag-list" id="for_sort" style="border:0;list-style-type:none;height: 50px;;">&nbsp;</li>
+            </ul>
+        </form>
+    </div>
+
+    <div class="right_rwapper">
+
+        <form method="post">
+                {% csrf_token %}
+                <input class="id_input" type="hidden" name="formset_room" id="card_id" value="{{card_id}}">
+                {{newform}}
+                <h5>オプション</h5>
+                <p>名前を指定して複数のコンテンツを<b>ルーム</b>に追加する</p>
+
+                <div class="form-check form-switch mt-2">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="101">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">101</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="102">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">102</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="103">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">103</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="105">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">105</label>
+                </div>
+
+                <div class="form-check form-switch mt-3">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="201">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">201</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="202">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">202</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="203">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">203</label>
+                </div><div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" name="multiadd[]" value="205">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">205</label>
+                </div>
+            
+            <input class="btn btn-outline-primary btn-sm mt-3 addbtn" type="button" name="multiadd_new" value="コンテンツを&#13;&#10;まとめて追加">
+        </form>
+
+        <div Class="clearfix"></div>
+    </div>
+    <div class="loading">
+    <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <script src="{% static 'arko/js/group_top.js' %}"></script>
+
+    {% endblock %}

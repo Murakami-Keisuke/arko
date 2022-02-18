@@ -1,0 +1,59 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'arko/css/userlist.css' %}">
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+            <li class="breadcrumb-item">グループ設定</li>
+            <li class="breadcrumb-item">グループの履歴</li>
+        </ol>
+    </nav>
+</div>
+<div class="float-start pt-3 ps-5" style="width:70%;margin-bottom: 50px;">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <!-- 現在よりも前のページが存在する場合 -->
+                <a href="?page=1">&laquo; 先頭</a>
+                <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+            {% endif %}
+
+            <span class="current">
+                <!-- 現在のページ番号と、全ページ数を表示 -->
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <!-- 現在よりも後のページが存在する場合 -->
+                <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">最後 &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+<table class="table">
+    
+    {% for record in object_list %} 
+    <tr >
+        <td><b> {{ record.block }} >> {{record.card}} >> {{record.room}}</b> </td>
+        <td> {{record}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}

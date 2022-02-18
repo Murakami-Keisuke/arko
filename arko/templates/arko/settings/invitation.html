@@ -1,0 +1,83 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+
+{% load widget_tweaks %}
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+            <li class="breadcrumb-item">グループ設定</li>
+            <li class="breadcrumb-item">ユーザーの招待</li>
+        </ol>
+    </nav>
+</div>
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);margin-bottom: 50px;">
+<div class="container col-md col-lg-7  ps-3 mt-5 this" >
+    <p class="fs-1">グループにメンバーを招待する</p>
+    <p>{{arkogroup}}グループに新しいメンバーを追加します</p>
+    <p class="fs-3"><i class="bi bi-arrow-right-circle-fill"></i> 招待用のリンクを招待したいメンバーに送ります</p>
+    <div class="para">
+        <p> 招待用のリンク</p>
+        <div class="d-flex">
+            <input type="text" class="form-control urlform" id="exampleFormControlInput1" value="{{signup_url}}" readonly>
+            <button type="button" class="btn btn-secondary copybtn" data-bs-toggle="tooltip" data-bs-placement="top" title="クリップボードにコピー">
+                <i class="bi bi-clipboard-plus"></i>
+            </button>
+        </div>
+    </div>
+    <p class="fs-3"><i class="bi bi-arrow-right-circle-fill"></i> グループのパスワードをメンバーに知らせます</p>
+    <div class="para">
+        <p>パスワードは関係のない他の人に知られないよう注意してください</p>
+    </div>
+    <p class="fs-3"><i class="bi bi-arrow-right-circle-fill"></i> ページにアクセスし、サインアップします</p>
+    <div class="para">
+        <p>メンバーは自分のユーザー名を新しく決めます</p>
+        <p>パスワードはあなたから知らされたパスワードを使用します</p>
+    </div>
+    <p class="fs-3"><i class="bi bi-arrow-right-circle-fill"></i> ログインできたら成功です</p>
+<style>
+    .this .fs-3{
+        padding-top:15px;
+    }
+
+    .this .para{
+        margin-left:10px;
+        padding:20px 20px 30px 50px;
+        border-left: 3px lightgray solid;
+    }
+    
+    input[type="text"]:read-only{
+        background:white;
+        width:60%
+    }
+</style>
+</div>
+</div>
+<script>
+    const urlform= document.querySelector('.urlform');
+    const to_copy =(e)=>{
+        const text=urlform.value;
+        console.log(urlform)
+        urlform.focus();
+        urlform.select();
+        document.execCommand("copy");
+        console.log("copied")
+    }
+    window.onload=(()=>{
+        const copybtn = document.querySelector('.copybtn');
+        copybtn.addEventListener('click',to_copy);
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+    })
+
+</script>
+{% endblock %}

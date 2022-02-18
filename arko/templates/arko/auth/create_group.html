@@ -1,0 +1,24 @@
+{% extends 'arko/auth/base.html' %}
+
+{% block content %}
+<div>
+    <h5>ステップ1:新しいグループを作成する</h5>
+    <h5 style="color:lightgray; margin-bottom:40px;">ステップ2:最初のユーザーを作成する</h5>
+    <form method="post">
+        {% csrf_token %}
+        <p><label class="control-label">{{form.groupname.label}}</label>
+            {{form.groupname}}
+        <span style="color:gray;font-size: 14px;">15文字以内。</span></p></p>
+        <p><label class="control-label">{{form.raw_password.label}}</label>
+            {{form.raw_password}}
+        <span style="color:gray;font-size: 14px;">8文字以上15文字以内。半角英数字と記号_-@ のみ入力可能.</span></p>
+        <div class="alert alert-primary" role="alert">
+            このパスワードはあなたのグループに参加するメンバーすべてが同じものを使用します。他の人も使用できるパスワードを設定してください。
+        </div>
+        {% if alart %}
+        <div class="alert alert-danger" role="alert"><i class="bi bi-exclamation-triangle"></i> {{alart}}</div>
+        {% endif %}
+        <input type="submit" class="btn btn-primary mt-3" value="新しいグループを作成する">
+    </form>
+</div>
+{% endblock %}

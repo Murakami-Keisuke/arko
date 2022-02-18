@@ -1,0 +1,65 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'arko/css/userlist.css' %}">
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+            <li class="breadcrumb-item">グループ設定</li>
+            <li class="breadcrumb-item">ユーザーの管理</li>
+        </ol>
+    </nav>
+</div>
+<div class="float-start pt-3 ps-5" style="width:70%;margin-bottom: 50px;">
+    <span class="fs-2 mb-4 d-inline-block">グループのユーザーを管理する</span>
+    <p><i class="bi bi-bell-fill"></i>自分自身は編集できません</p>
+    <input type="hidden" name="my_username" value="{{user}}">
+    {% for arkouser in arkouser_list %}
+    <div class="list_wrapper">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{arkouser.id}}">
+            <div>
+                <span class="align-middle thisname"><i class="bi bi-person"></i>{{arkouser.username}}</span>
+            </div>
+            <input type="hidden" name="group_value" value="{{arkouser.groups.first}}">
+            <span class="groups">権限:
+                <select class="form-select group_form" name="group" aria-label="Default select example" disabled>
+                    <option value="none">------</option>
+                    <option value="staff">スタッフ</option>
+                    <option value="member">メンバー</option>
+                </select>
+            </span>
+            <span class="last_login"> 最終ログイン: {{arkouser.last_login|date:"Y/m/d"}}</span>
+            <input type="hidden" name="is_active_value" value="{{arkouser.is_active}}" disabled>
+            <span class="is_active">有効
+                <!-- <input type="hidden" name="is_active" value="false"> -->
+                <input type="checkbox" class="form-check-input is_active_true" id="flexCheckDefault" name="is_active"
+                    value="true" disabled>
+            </span>
+            <span class="can_delete"> <span style="color:red;"> 削除する</span>
+                <input type="checkbox" class="form-check-input delete_form" id="flexCheckDefault" name="delete"
+                    value="true">
+            </span>
+
+            <input type="button" class="btn btn-outline-primary btn-sm float-end" name="save" value="編集">
+            <div class="clearfix"></div>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<script src="{% static 'arko/js/userlist.js' %}"></script>
+{% endblock %}

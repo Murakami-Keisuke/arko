@@ -1,0 +1,132 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'arko/css/statuslist.css' %}">
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px);">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+            <li class="breadcrumb-item">グループ設定</li>
+            <li class="breadcrumb-item">ステータス管理</li>
+        </ol>
+    </nav>
+</div>
+<div class="float-start pt-3 ps-5" style="width:calc(100% - 200px);margin-bottom: 50px;">
+    <p class="fs-2">ステータスの管理</p>
+    <p>Roomのそれぞれのコンテンツに選択肢として表示されるステータスの設定をします。<br>
+        何も選択していないコンテンツは自動的にクリア（初期値）に割り当てられます。クリア（初期値）は編集できません。 </p>
+    <div class="left_wrapper">
+
+        <div class="row align-items-center bg-light">
+
+            <div class="col field">
+                <p><input type="text" class="form-control" value="------  クリア(初期値）" disabled></p>
+                <div class="mt-2 mb-3">
+                    <span> カラー<input type="color" class="color form-control form-control-color" value="#ffffff"
+                            style="margin-left: 5px;" disabled></span>
+                    <span><input type="checkbox" class="form-check-input" disabled> アクセス禁止</span>
+                    <span><input type="checkbox" class="form-check-input" disabled> 選択不可</span>
+                </div>
+
+            </div>
+            <div class="col field" style="max-width: 320px;">
+                <div class="sample_card">
+                    <p class="fs-4 title m-0"><b>101</b></p>
+                    <p class="m-0">コメント</p>
+                    <p>最終更新日時:2022/1/1<a href="#">詳細</a></p>
+                    <div class="color_area_clear"></div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="post">
+
+            <input type="button" class="btn btn-outline-primary" name="savebtn" value="編集">
+            <input type="button" class="btn btn-outline-primary" name="addbtn" value="ステータスを追加">
+            <p>[アクセス禁止]のステータスを設定すると、メンバーはそのコンテンツを変更できなくなります。</p>
+            <input type="hidden" name="addnew_sort_no" value="">
+
+            {% csrf_token %}
+            {{ statusforms.management_form }}
+            {% for statusform in statusforms %}
+            <div class="row align-items-center bg-light valid_row draggable_row" id="row-{{statusform.id.value}}"
+                draggable="true">
+                <div class="grip"><i class="bi bi-grip-vertical"></i></div>
+                {{statusform.id}}
+                {{statusform.sort_no}}
+                <div class="col field">
+                    <p>{{statusform.name}}</p>
+                    <div class="mt-2 mb-3"><span> カラー{{statusform.color}}</span>
+                            <span>{{statusform.is_ban}}アクセス禁止</span>
+                            <span>{{statusform.disable}}選択不可</span></div>
+                    <span
+                        class="editarea">{{statusform.DELETE|add_class:"form-check-input"}}削除する</span>
+                </div>
+                <div class="col field" style="max-width: 320px;">
+                    <div class="sample_card">
+                        <p class="fs-4 title m-0"><b>101</b></p>
+                        <p class="m-0">コメント</p>
+                        <p>最終更新日時:2022/1/1 <a href="#">詳細</a></p>
+
+                        <div class="color_area"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            {% endfor %}
+            <div class="row draggable_row" id="for_sort" style="border:0;height: 50px;background-color:white;">&nbsp;
+            </div>
+        </form>
+    </div>
+
+
+    <div class="right_wrapper">
+
+        <h4>オプション</h4>
+        <p class="fs-5">ステータスをまとめて指定する</p>
+        <p>Roomコンテンツに割り当てられているステータスを条件で絞り込み、まとめて変更または指定します。
+            大量のコンテンツをマネージメントするのに便利です。（最終更新されてから一定期間過ぎたコンテンツをクリアに戻す、など。）
+        </p>
+        <p>
+            ※あるステータスを削除した場合、それが割り当てられていたコンテンツは「クリア」に戻されます。必要に応じて削除前に変更してください。
+        </p>
+
+        <b> 変更するコンテンツを指定する:</b>
+        <form method="post">
+            {% csrf_token %}
+            <p>
+                ステータスが
+                {{status_manage_forms.stat_FROM}}
+                のもので、最終更新日時から <br>
+                {{status_manage_forms.date_delta}}
+                日（0=すべて）以上<br> 経過しているものを、
+                次のステータスに変更する。
+                {{status_manage_forms.stat_TO}}
+
+            </p>
+            <input type="button" class=" btn btn-outline-primary" name="mngbtn" value="実行">
+        </form>
+        {% if alart %}
+        <div class="alert alert-success"><i class="bi bi-check2" style="font-size:25px;"></i> <br> {{alart}}</div>
+        {% endif %}
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<script src="{% static 'arko/js/statuslist.js' %}"></script>
+{% endblock %}

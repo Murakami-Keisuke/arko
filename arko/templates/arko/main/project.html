@@ -1,0 +1,108 @@
+{% extends 'arko/main/base.html' %}
+
+{% load static %}
+
+{% block css %}
+  <link rel="stylesheet" href="{% static 'arko/css/project.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+<div class="loading">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <span>Loading...</span>
+</div>
+
+<div class="page_card page_show">
+  <button class="btn btn-secondary menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+    <i class="bi bi-box-arrow-in-left"></i>ブロック選択
+  </button>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header" style="padding-top:100px;">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">ブロックを選択する</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      
+        {% for block in blocks %}
+      <button  type="button" class="block_list" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasExample">
+        {{block.name}}
+        <input type="hidden" value="{{block.id}}">
+      </button>
+    {% endfor %}
+
+    </div>
+  </div>
+
+  <div id="card_container"></div>
+</div>
+
+<div class="page_room">
+  <button class="btn btn-secondary menu-btn" id="movebtn" type="button" >
+    <i class="bi bi-chevron-double-left"></i>カードに戻る
+  </button>
+
+  <div id="room_container" ></div>
+
+</div> 
+<div id="status_value">
+  {% for stat in status %}
+  <input type="hidden" id='stat_{{stat.id}}' name={{stat.name}} value={{stat.color}} isban={{stat.is_ban}}>
+  {% endfor %}
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ステータスの変更</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="stat_list fs-4" data-bs-dismiss="modal" name="None" id="white" style="border-left:10px lightgray solid;">
+          クリア
+        </div>
+        {% for stat in status %}
+        {% if stat.disable != True %}
+        <div class="stat_list fs-4" data-bs-dismiss="modal" name={{stat.id}} id={{stat.color}} style="border-left:10px {{stat.color}} solid;">
+          {{stat.name}}
+        </div>
+        {% endif %}
+        {% endfor %}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">履歴</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="historycontainer"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="user_id" value={{user.id}}>
+
+
+<script src="{% static 'arko/js/project.js' %}"></script>
+
+{% endblock %}

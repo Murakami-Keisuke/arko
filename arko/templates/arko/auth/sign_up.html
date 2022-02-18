@@ -1,0 +1,35 @@
+{% extends 'arko/auth/base.html' %}
+
+{% block content %}
+<div>
+    {% if first == 'True' %}
+    <h5 style="color:lightgray;">ステップ1:新しいグループを作成する</h5>
+    <h5 style="margin-bottom:40px;">ステップ2:最初のユーザーを作成する</h5>
+    {% else %}
+    <h2 class="mb-5">{{arkogroup}}に参加する</h2>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="arkogroup" value="{{arkogroup}}">
+        <input type="hidden" name="perm" value="{{perm}}">
+        <input type="hidden" name="first" value="{{first}}">
+        <p>
+            <label class="control-label">登録するあなたの名前</label>
+            <input type="text" class='form-control' name="username" maxlength="30" required>
+        </p>
+        <p>
+            <label class="control-label">グループの設定されたパスワード</label>
+            <input type="password" class='form-control' name="password" maxlength="30" data-toggle="password" required>
+        </p>
+        {% if first == 'True' %}
+        <div class="alert alert-primary mt-3" role="alert">
+            あなたがこのグループの最初のユーザーです。あなたには自動的にstaff(スタッフ)権限が割り当てられます。この権限は後でグループ設定から変更できます。
+        </div>
+        {% endif %}
+        {% if alart %}
+        <div class="alert alert-danger" role="alert"><i class="bi bi-exclamation-triangle"></i> {{alart}}</div>
+        {% endif %}
+        <input type="submit" class="btn btn-primary mt-3" value="新しく参加する">
+    </form>
+</div>
+{% endblock %}
