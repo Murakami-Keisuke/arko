@@ -1,0 +1,76 @@
+/* .list-group-item a {
+    text-decoration: none;
+    color: #444941;
+    display: block;
+    width: 100%;
+    padding: 9px 0 9px 17px;
+} */
+
+.list_wrapper{
+    height:55px;
+    margin:5px 0;
+    padding:5px 20px ;
+    /* background-color:red; */
+    border:3px #7FC8A9 solid;
+    border-radius: 5px; 
+}
+
+.list_wrapper div{
+    float:left;
+    font-size:20px;
+    height:100%;
+    width: 250px;
+}
+
+.last_login{
+    display: inline-block;
+    margin-left:20px;
+    width: 200px;
+}
+
+.is_active{
+    display: inline-block;
+    margin-left:20px;
+    width: 70px;
+}
+
+.can_delete{
+    display: none;
+    margin-left:20px;
+    width: 100px;
+}
+.list_wrapper i{
+    /* float:left; */
+    margin-right:10px;
+    /* display:block; */
+    font-size:25px;
+}
+.name_form{
+    width:200px;
+    margin:0px;
+}
+
+.group_form{
+    display:inline-block;
+    margin:0px;
+    width: 150px;
+}
+
+.list_wrapper .btn{
+    margin:5px;
+}
+
+input[type="text"]:disabled{
+    background: white;
+    color:#444941;
+    border:0;
+    pointer-events:none;
+    
+}
+
+select:disabled{
+    background: white !important;
+    color:#444941;
+    border:0 !important;
+    pointer-events:none;
+}

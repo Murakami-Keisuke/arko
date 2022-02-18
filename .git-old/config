@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = https://github.com/Murakami-Keisuke/arkoapp.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[remote "heroku"]
+	url = https://git.heroku.com/arkoapp.git
+	fetch = +refs/heads/*:refs/remotes/heroku/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
