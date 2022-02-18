@@ -1,0 +1,127 @@
+/* group_top */
+
+.main_wrapper{
+    margin-bottom:50px;
+    width:320px;
+    float:left;
+    padding:10px;
+    /* background-color:red; */
+}
+
+.right_rwapper{
+    margin-bottom:50px;
+    margin-top:50px;
+    width:180px;
+    float:left;
+    padding:20px;
+    border:1px lightgray solid;
+    border-radius:5px;
+}
+
+
+.card_wrapper{
+    width:100%;
+    padding:10px;
+    background-color:white;
+    border-top:1px lightgray solid;
+    /* border-bottom:1px lightgray solid; */
+    border-right: 0;
+    box-shadow:none;
+}
+
+.card_elm{
+    width:100%;
+    padding:3px 10px;
+    border:3px #7FC8A9 solid;
+    border-radius: 8px;
+    min-height:70px;
+    background-color:white;
+    
+}
+
+.card_wrapper_active{
+
+    border-right:2px #bdbdbd solid;
+    background-color:#D5EEBB;
+    box-shadow: 2px 0px 2px lightgray;
+}
+
+.edit_confirm{
+    margin:5px 20px 0px 10px;
+    clear:both;
+    display:none;
+}
+
+.transform{
+    transform: 0.3s;
+}
+
+input[type="text"]:disabled{
+    background: white;
+    color:#444941;
+    border:0;
+    pointer-events:none;
+    
+}
+
+.titlefield:disabled{
+    font-size:20px;
+}
+
+input[name="id_check"]{
+    display:none;
+}
+
+.drag-list{
+    border-top: 0;
+}
+
+.noneEvents{
+    pointer-events:none;
+}
+
+.autoEvents{
+    pointer-events:auto !important;
+}
+
+.room_wrapper{
+    width:100%;
+    padding:10px;
+    border-right:2px #bdbdbd solid;
+    background-color:#D5EEBB;
+    box-shadow: 2px 0px 2px lightgray;
+}
+
+select:disabled{
+    background-color:white !important;
+    border:0;
+}
+.form-check-label{
+    font-size: 18px;
+    color: #444941;
+}
+
+.DnD{
+    display:none;
+    color:gray;
+}
+
+.loading{
+    position:absolute;
+    top:0;
+    left:0;
+    height:100vh;
+    width:100%;
+    background-color:rgba(255, 255, 255, 0.5);
+    z-index:10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner-border{
+margin:0 auto;
+width:3rem;
+height: 3rem;
+}
+
