@@ -129,7 +129,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # 追記
 
-STATIC_URL = '/staticfiles/'
+STATIC_URL = 'staticfiles/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
