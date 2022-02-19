@@ -15,6 +15,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import user_passes_test
 from django.db import IntegrityError
+from django.contrib.auth.models import User,Group
 
 # Create your views here.
 def top(request):
@@ -77,6 +78,9 @@ def sign_up(request,arkogroup):
         username=request.POST['username']
         raw_password=request.POST['password']
         perm=request.POST['perm']
+        # perm = Group.objects.get(name=perm)
+        # arkogroup_obj= Arkogroup.objects.get(name=arkogroup)
+
 
         
         first=request.POST.get(key="first", default=None)
@@ -93,6 +97,7 @@ def sign_up(request,arkogroup):
                 elif res == 'some_erroe' :
                     alart = 'ユーザーを登録できませんでした。'
                 else:
+                    # print(type(request),type(res))
                     login(request, res)
                     username=res.username
                     url = reverse('dashboard')
