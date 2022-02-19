@@ -33,7 +33,7 @@
 
 <body style="color:#444941">
     <div class="position-relative" style="min-height:100vh;">
-        <nav class="navbar fixed-top navbar-expand-md navbar-light" style='background-color:#7FC8A9;'>
+        <nav class="navbar shadow fixed-top navbar-expand-md navbar-light" style='background-color:#7FC8A9;'>
             <div class="container-fluid" >
                 <a  class="navbar-brand" href="{% url 'dashboard' %}"><img src="{% static 'arko/img/logo.png' %}"
                     style="height: 40px; width:auto;" alt="ダッシュボードへ"></a>
@@ -43,7 +43,7 @@
 
 
               <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
-                <ul class="navbar-nav ">
+                <ul class="navbar-nav " style="font-size:20px;">
                   <li class="nav-item">
                     <a class="nav-link dashboard" href="{% url 'dashboard' %}">ダッシュボード</a>
                   </li>
