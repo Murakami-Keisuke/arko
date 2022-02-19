@@ -143,7 +143,7 @@ class Invitation(UserPassesTestMixin,View):
 
     def get(self, request, arkogroup):
         arkogroup_obj=Arkouser.objects.get(username=request.user).arkogroup
-        api_domain= '127.0.0.1:8000'
+        api_domain= 'https://arkoapp.herokuapp.com'
         signup_url=reverse('sign_up', kwargs=dict(arkogroup=arkogroup))
         key= arkogroup_obj.key
         param = urlencode({'key':key})
