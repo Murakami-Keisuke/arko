@@ -20,6 +20,8 @@ from django.middleware.csrf import get_token
 from django.http import QueryDict
 
 class Dashboard(LoginRequiredMixin, View):
+    login_url = 'top'
+
     def get(self, request):
         arkouser= Arkouser.objects.get(id=request.user.id)
         hist_qset= arkouser.history_set.all().order_by('create_at').reverse()[:7]
@@ -30,7 +32,7 @@ class Dashboard(LoginRequiredMixin, View):
                 card = room.card
                 block = card.block
                 string1= f'{block} >> {card} >> {room}'
-                string2= f"{timezone.localtime(i.create_at).strftime('%m-%d-%y %H:%M')} /{i.choice_stat} "
+                string2= f"{timezone.localtime(i.create_at).strftime('%y-%m-%d %H:%M')} /{i.choice_stat} "
                 elm = {'content':string1,'value':string2}
                 valueset.append(elm)
         context={'current':'.dashboard','history':valueset}

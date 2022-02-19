@@ -39,13 +39,16 @@ var Carddraw = function (_React$Component) {
         return response.json();
       }).then(function (data) {
         _this2.setState({ block: data.block, card: data.card });
+        loading.style.display = "none";
       }).catch(function (reason) {
         alert('通信に失敗しました。もう一度お試しください。(カード情報取得失敗)');
+        loading.style.display = "none";
       });
     }
   }, {
     key: 'Pagechange',
     value: function Pagechange(id) {
+      loading.style.display = "block";
       room_dom.Draw(id);
     }
   }, {
@@ -184,10 +187,12 @@ var Roomdraw = function (_React$Component2) {
         return response.json();
       }).then(function (data) {
         _this5.setState({ block: data.block, card: data.card, room: data.room });
+        loading.style.display = "none";
         page_card.classList.remove('page_show');
         page_room.classList.add('page_show');
       }).catch(function (reason) {
         alert('通信に失敗しました。もう一度お試しください。(ルーム情報取得失敗)');
+        loading.style.display = "none";
       });
     }
   }, {
@@ -499,6 +504,7 @@ var CSRFToken = function CSRFToken(e) {
 };
 
 var card_draw = function card_draw(e) {
+  loading.style.display = "block";
   var block_id = e.target.querySelector('input').value;
   card_dom.Draw(block_id);
 };

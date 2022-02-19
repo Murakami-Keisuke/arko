@@ -22,12 +22,15 @@ class Carddraw extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({ block: data.block ,card: data.card});
+        loading.style.display = "none";
       }).catch((reason) => {
         alert('通信に失敗しました。もう一度お試しください。(カード情報取得失敗)');
+        loading.style.display = "none";
       });
   }
 
   Pagechange(id){
+    loading.style.display = "block";
     room_dom.Draw(id);
 
   }
@@ -88,10 +91,13 @@ class Roomdraw extends React.Component {
       .then(response => response.json())
       .then((data) => {
         this.setState({ block: data.block, card: data.card, room:data.room });
+        loading.style.display = "none";
         page_card.classList.remove('page_show');
         page_room.classList.add('page_show');
+        
       }).catch((reason) => {
         alert('通信に失敗しました。もう一度お試しください。(ルーム情報取得失敗)');
+        loading.style.display = "none";
       });
   }
 
@@ -299,6 +305,7 @@ const CSRFToken =(e)=>{
 
 
 const card_draw = (e) => {
+  loading.style.display = "block";
   const block_id = e.target.querySelector('input').value;
   card_dom.Draw(block_id)
 }

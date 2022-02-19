@@ -146,5 +146,5 @@ class History(models.Model):
         #     choice_stat_str='クリア'
         # else:
         #     choice_stat_str=self.choice_stat
-        t=f"{timezone.localtime(self.create_at).strftime('%m-%d-%y %H:%M')} /{self.choice_stat:12} (ユーザー:{self.username})"
+        t=f"{timezone.localtime(self.create_at).strftime('%y-%m-%d %H:%M')} /{self.choice_stat:12} (ユーザー:{self.username})"
         return  t
