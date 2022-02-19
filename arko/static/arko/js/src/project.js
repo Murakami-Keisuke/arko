@@ -1,7 +1,7 @@
 
 'use strict';
 
-const API_host = 'http://127.0.0.1:8000/'
+const API_host = 'https://arkoapp.herokuapp.com/';
 const e = React.createElement;
 
 let room_selected ='';
