@@ -19,6 +19,7 @@
     text-align: center;
     font-weight:900;
     color:gray;
+    z-index: 20;
     /* display: none; */
     
 }
