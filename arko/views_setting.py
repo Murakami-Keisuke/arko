@@ -112,7 +112,7 @@ class Group_top(UserPassesTestMixin,View):
             card_obj = Card.objects.get(id=card)
             add_instance=[]
             for i in array:
-                stat_choise= arkogroup_obj.status_set.all().order_by('sort_no').first()
+                stat_choise= Status.objects.none()
                 instance= Room(card=card_obj, name= i, sort_no=sort_no, stat=stat_choise)
                 add_instance.append(instance)
             Room.objects.bulk_create(add_instance)

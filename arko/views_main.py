@@ -26,6 +26,11 @@ class Dashboard(LoginRequiredMixin, View):
 
     def get(self, request):
         arkouser= Arkouser.objects.get(id=request.user.id)
+
+        history = History.objects.filter(room__card__block__arkogroup=arkouser.arkogroup)
+        history = history.filter(create_at__lte=timezone.now()-timedelta(days=30))
+        history.delete()
+
         hist_qset= arkouser.history_set.all().order_by('create_at').reverse()[:7]
         valueset =[]
         if len(hist_qset):
@@ -125,7 +130,7 @@ def history_modal_api(request,id):
 def mission_api(request,id):
     context={}
     block = Block.objects.get(id=int(id))
-    rooms = Room.objects.filter(card__block =block).order_by('-update_at')
+    rooms = Room.objects.filter(card__block =block).order_by('update_at')
     # # model Mission =[block, create_at, room, ]
     stored = block.mission_set.all()
     stored_old=stored.filter(create_at__lte=timezone.now()-timedelta(days=1))
