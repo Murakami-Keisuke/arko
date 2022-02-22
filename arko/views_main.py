@@ -5,7 +5,7 @@ from django.http import HttpResponse,HttpRequest
 from django.http.response import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.contrib.auth import authenticate, login
-from .models import Arkogroup,Arkouser,Block,Card,Status,Room,History
+from .models import Arkogroup,Arkouser,Block,Card,Status,Room,History,Mission
 from .forms import Status_forms,Status_namage
 from django.views import View
 from django.forms import formset_factory, modelformset_factory
@@ -18,6 +18,8 @@ import json
 from django.core import serializers
 from django.middleware.csrf import get_token
 from django.http import QueryDict
+from django.core import serializers
+
 
 class Dashboard(LoginRequiredMixin, View):
     login_url = 'top'
@@ -81,7 +83,7 @@ def CsrfView(request):
     return JsonResponse({'token': get_token(request)})
 
 def history_api(request):
-    context=''
+    context={}
     if request.method == 'POST':
         data=json.loads(request.body)
         print(data)
@@ -118,6 +120,32 @@ def history_modal_api(request,id):
             list1.append(elm)
         context['history']=list1
 
+    return JsonResponse(context)
 
+def mission_api(request,id):
+    context={}
+    block = Block.objects.get(id=int(id))
+    rooms = Room.objects.filter(card__block =block).order_by('-update_at')
+    # # model Mission =[block, create_at, room, ]
+    stored = block.mission_set.all()
+    stored_old=stored.filter(create_at__lte=timezone.now()-timedelta(days=1))
+    stored_old.delete()
+    stored = stored.filter(create_at__gt=timezone.now()-timedelta(days=1))
+    for room in rooms:
+        if room.stat:
+            if room.stat.is_ban == True:
+                continue
 
+        if not stored.filter(room=room).exists():
+            Mission.objects.create(block=block,room=room)
+            card= room.card.__dict__
+            del card['_state']
+            room =room.__dict__
+            del room['_state']
+
+            context['block']=block.name
+            context['card']=card
+            context['room']=room
+            break
+        
     return JsonResponse(context)

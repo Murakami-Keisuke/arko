@@ -29,4 +29,5 @@ urlpatterns = [
     path('history_api/', views_main.history_api),
     path('get_csrf/', views_main.CsrfView),
     path('history_modal_api/<id>/', views_main.history_modal_api),
+    path('mission_api/<id>/', views_main.mission_api),
 ]

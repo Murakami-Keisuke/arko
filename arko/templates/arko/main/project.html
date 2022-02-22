@@ -26,6 +26,8 @@
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">ブロックを選択する</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    
+
     <div class="offcanvas-body">
       
         {% for block in blocks %}
@@ -37,6 +39,9 @@
 
     </div>
   </div>
+  <button class="btn btn-outline-secondary menu-btn" id="movebtn_to_m" type="button" style="display:none">
+    ミッションモード
+  </button>
 
   <div id="card_container"></div>
 </div>
@@ -53,6 +58,26 @@
   {% for stat in status %}
   <input type="hidden" id='stat_{{stat.id}}' name={{stat.name}} value={{stat.color}} isban={{stat.is_ban}}>
   {% endfor %}
+</div>
+
+
+
+
+<div class="page_mission">
+  <button class="btn btn-secondary menu-btn" id="backbtn_m" type="button" >
+    <i class="bi bi-chevron-double-left"></i>カードに戻る
+  </button>
+
+  <button class="btn btn-outline-secondary menu-btn" id="nextbtn" type="button" >
+    NEXT <i class="bi bi-box-arrow-right"></i>
+  </button>
+  <div class="alert alert-primary" role="alert">
+    表示されたコンテンツは本日限り有効です
+  </div>
+
+  <div id="mission_container"></div>
+
+
 </div>
 
 <!-- Modal -->
@@ -103,6 +128,7 @@
 <input type="hidden" id="user_id" value={{user.id}}>
 
 
-<script src="{% static 'arko/js/project.js' %}"></script>
+<script src="{% static 'arko/js/project.js' %}" type="module"></script>
+{% comment %} <script src="{% static 'arko/js/project_draw.js' %}" type="module"></script> {% endcomment %}
 
 {% endblock %}

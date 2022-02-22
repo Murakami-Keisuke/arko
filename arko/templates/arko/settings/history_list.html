@@ -1,7 +1,7 @@
 {% extends 'arko/settings/base_setting.html' %}
 
 
-{% load widget_tweaks %}
+{% comment %} {% load widget_tweaks %} {% endcomment %}
 {% load static %}
 
 {% block css %}
@@ -50,7 +50,7 @@
     {% for record in object_list %} 
     <tr >
         <td><b> {{ record.block }} >> {{record.card}} >> {{record.room}}</b> </td>
-        <td> {{record}}</td>
+        <td> {{record}} /ユーザー:{{record.username}} </td>
     </tr>
     {% endfor %}
 </table>

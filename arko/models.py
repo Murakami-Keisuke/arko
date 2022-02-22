@@ -146,5 +146,11 @@ class History(models.Model):
         #     choice_stat_str='クリア'
         # else:
         #     choice_stat_str=self.choice_stat
-        t=f"{timezone.localtime(self.create_at).strftime('%y-%m-%d %H:%M')} /{self.choice_stat:12} (ユーザー:{self.username})"
+        t=f"{timezone.localtime(self.create_at).strftime('%y-%m-%d %H:%M')} /{self.choice_stat:<12} "
         return  t
+
+class Mission(models.Model):
+    objects = BaseManager()
+    block= models.ForeignKey(Block,on_delete=models.CASCADE)
+    room= models.ForeignKey(Room,models.SET_NULL,blank=True,null=True,)
+    create_at = models.DateTimeField(auto_now_add=True)
