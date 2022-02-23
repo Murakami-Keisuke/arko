@@ -287,7 +287,7 @@ class Missiondraw extends React.Component {
       link = <a className="btn btn-sm btn-outline-primary" href={map_url} target="_blank" rel="noopener noreferrer">地図を見る</a>
     }
     elm.push(
-      <div key={i.id}>
+      <div key={'c_'+i.id}>
 
         <p className="fs-5 title m-0"><b>{i.name}</b><i className="bi bi-chevron-double-right"></i></p>
         <p className="m-0">{i.comment}</p>
@@ -330,7 +330,7 @@ class Missiondraw extends React.Component {
 
 
     elm.push(
-      <div key={j.id}>
+      <div key={'r_'+j.id}>
         <div className="sample_card">
           <p className="fs-5 title m-0"><b>{j.name}</b></p>
           <p className="m-0">{j.comment}</p>

@@ -528,7 +528,7 @@ var Missiondraw = function (_React$Component4) {
       }
       elm.push(React.createElement(
         'div',
-        { key: i.id },
+        { key: 'c_' + i.id },
         React.createElement(
           'p',
           { className: 'fs-5 title m-0' },
@@ -587,7 +587,7 @@ var Missiondraw = function (_React$Component4) {
 
       elm.push(React.createElement(
         'div',
-        { key: j.id },
+        { key: 'r_' + j.id },
         React.createElement(
           'div',
           { className: 'sample_card' },
