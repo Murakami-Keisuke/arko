@@ -395,6 +395,12 @@ var Historydraw = function (_React$Component3) {
         return React.createElement(
           'div',
           null,
+          React.createElement(
+            'p',
+            { className: 'fs-4' },
+            this.state.room,
+            '\u306E\u5C65\u6B74'
+          ),
           'Enpty.'
         );
       }
@@ -402,6 +408,12 @@ var Historydraw = function (_React$Component3) {
         return React.createElement(
           'div',
           null,
+          React.createElement(
+            'p',
+            { className: 'fs-4' },
+            this.state.room,
+            '\u306E\u5C65\u6B74'
+          ),
           '\u30B3\u30F3\u30C6\u30F3\u30C4\u304C\u3042\u308A\u307E\u305B\u3093'
         );
       }

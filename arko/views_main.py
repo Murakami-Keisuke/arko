@@ -131,11 +131,16 @@ def mission_api(request,id):
     context={}
     block = Block.objects.get(id=int(id))
     rooms = Room.objects.filter(card__block =block).order_by('update_at')
+    roomsprint = rooms[:10]
+    # print(block)
+    # for i in roomsprint:
+    #     print(i.card,i,i.update_at)
     # # model Mission =[block, create_at, room, ]
     stored = block.mission_set.all()
     stored_old=stored.filter(create_at__lte=timezone.now()-timedelta(days=1))
     stored_old.delete()
     stored = stored.filter(create_at__gt=timezone.now()-timedelta(days=1))
+
     for room in rooms:
         if room.stat:
             if room.stat.is_ban == True:
@@ -152,5 +157,6 @@ def mission_api(request,id):
             context['card']=card
             context['room']=room
             break
-        
+    # print(context)
+
     return JsonResponse(context)

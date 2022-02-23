@@ -269,18 +269,31 @@ class StatusList(UserPassesTestMixin,View):
                 stat_after=Status.objects.get(id=stat_after)
             else:
                 stat_after=None
+
             print('from:',stat_before,'  to:',stat_after)
             date_delta = request.POST.get(key='date_delta',default= 0)
 
-            
+            # block_choise のオブジェクト取得
+            block_choice = request.POST.get(key='block_choice',default=None)
+
             qset= Room.objects.filter(card__block__arkogroup=arkogroup_obj)
+            
+            if block_choice:
+                block_choice= Block.objects.get(id= block_choice)
+                qset= qset.filter(card__block=block_choice)
+            
+            # if not len(qset):
+            #     return redirect(url, arkogroup)
+            # print('len',len(qset))
+
             qset=qset.filter(stat=stat_before)
             qset=qset.filter(update_at__lte=timezone.now()-timedelta(days=int(date_delta)))
             print(timezone.now(),'/',datetime.now())
 
             print('qset:' ,qset)
             update_count = qset.update(stat=stat_after)
-            alart=f'{update_count}個のRoomコンテンツのステータスを{stat_after}に更新しました。'
+            if not stat_after:
+                stat_after='クリア'
             param=urlencode({'update_count':update_count,'stat_after':stat_after})
             url=reverse('statuslist', kwargs=dict(arkogroup=arkogroup))+'?'+param
         
@@ -308,3 +321,61 @@ class HistoryListView(UserPassesTestMixin,ListView):
         context= super().get_context_data(**kwargs)
         context['current_page']= '.historylist'
         return context
+
+class Overview(UserPassesTestMixin,View):
+    def __init__(self):
+        super().__init__()
+        self.statusforms = modelformset_factory(Status,form=Status_forms,extra=0,can_delete=True)
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='staff')
+
+    def get(self, request, arkogroup):
+        arkogroup_obj=Arkouser.objects.get(id=request.user.id).arkogroup
+
+        blocks = arkogroup_obj.block_set.all().order_by('sort_no')
+        status = arkogroup_obj.status_set.all().order_by('sort_no')
+        blockdata= []
+
+        for block in blocks:
+            card= block.card_set.all()
+            rooms = Room.objects.filter(card__block=block)
+            room_count = rooms.count()
+            
+            if rooms:
+                delta_list=[]
+                for room in rooms:
+                    delta_list.append(timezone.now()-room.update_at)
+                # print(delta_list)
+                delta_avr= sum(delta_list,timedelta()) / room_count
+                delta_avr = str(delta_avr.days)+'日'
+                delta_max=str(max(delta_list).days)+'日'
+            else:
+                delta_avr='NULL'
+                delta_max='NULL'
+
+            statusdata=[]
+            for j in status:
+                if room_count:
+                    stat_count = int(rooms.filter(stat=j).count()/room_count *100)
+                else:
+                    stat_count =0
+                stat_elm ={
+                    'count':str(stat_count)+ '%',
+                    'color':j.color
+                }
+                statusdata.append(stat_elm)
+
+            elm={
+                'blockname':block.name,
+                'card_count':card.count(),
+                'room_count':room_count,
+                'statusdata':statusdata,
+                'timedelta':delta_avr,
+                'timedelta_max':delta_max
+                }
+            blockdata.append(elm)
+
+        context={ 'current_page':'.overview','blockdata':blockdata}
+        # print(context)
+        return render(request,"arko/settings/overview.html",context)

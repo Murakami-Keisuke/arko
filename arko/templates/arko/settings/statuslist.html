@@ -23,7 +23,7 @@
         </ol>
     </nav>
 </div>
-<div class="float-start pt-3 ps-5" style="width:calc(100% - 200px);margin-bottom: 50px;">
+<div class="float-start pt-3 ps-5" style="width:calc(100% - 200px);margin-bottom: 80px;">
     <p class="fs-2">ステータスの管理</p>
     <p>Roomのそれぞれのコンテンツに選択肢として表示されるステータスの設定をします。<br>
         何も選択していないコンテンツは自動的にクリア（初期値）に割り当てられます。クリア（初期値）は編集できません。 </p>
@@ -110,6 +110,8 @@
         <form method="post">
             {% csrf_token %}
             <p>
+                次のブロックの
+                {{status_manage_forms.block_choice}}
                 ステータスが
                 {{status_manage_forms.stat_FROM}}
                 のもので、最終更新日時から <br>

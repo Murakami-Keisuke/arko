@@ -20,7 +20,7 @@ var Missiondraw = function (_React$Component) {
 
   _createClass(Missiondraw, [{
     key: 'Draw',
-    value: function Draw(block_id, API_host) {
+    value: function Draw(block_id, API_host, loading, page_card, page_mission) {
       var _this2 = this;
 
       var local_url = 'mission_api/';
@@ -38,12 +38,6 @@ var Missiondraw = function (_React$Component) {
         alert('通信に失敗しました。もう一度お試しください。(カード情報取得失敗)');
         loading.style.display = "none";
       });
-    }
-  }, {
-    key: 'Pagechange',
-    value: function Pagechange(id) {
-      loading.style.display = "block";
-      room_dom.Draw(id);
     }
   }, {
     key: 'render',
@@ -159,7 +153,7 @@ var Missiondraw = function (_React$Component) {
                 'data-bs-toggle': 'modal',
                 'data-bs-target': '#exampleModal2',
                 onClick: function onClick() {
-                  history_dom.Draw(j.id);
+                  Historydraw.Draw(j.id);
                 } },
               React.createElement('i', { className: 'bi bi-box-arrow-in-left' }),
               '\u8A73\u7D30'
@@ -180,7 +174,8 @@ var Missiondraw = function (_React$Component) {
           null,
           this.state.block,
           ' ',
-          React.createElement('i', { className: 'bi bi-chevron-double-right' })
+          React.createElement('i', { className: 'bi bi-chevron-double-right' }),
+          ' \u30DF\u30C3\u30B7\u30E7\u30F3\u30E2\u30FC\u30C9'
         ),
         elm
       );
@@ -189,3 +184,5 @@ var Missiondraw = function (_React$Component) {
 
   return Missiondraw;
 }(React.Component);
+
+export { Missiondraw };

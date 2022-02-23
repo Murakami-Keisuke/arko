@@ -54,7 +54,7 @@
                   </li>
                   {% if perm|stringformat:"s" == 'staff' %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'group_top' arkogroup %}">グループ設定</a>
+                    <a class="nav-link" href="{% url 'overview' arkogroup %}">グループ設定</a>
                   </li>
                   {% endif %}
                   <li class="nav-item">

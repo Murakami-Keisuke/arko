@@ -106,7 +106,7 @@ class Room_forms(ModelForm):
     def __init__(self,arkogroup=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # print('init内での引数:',type(arkogroup))
-        choice= arkogroup.status_set.all()
+        choice= arkogroup.status_set.all().order_by('sort_no')
         if choice:
             self.fields['stat'].queryset = choice
             self.fields['stat'].empty_label = 'クリア'
@@ -201,6 +201,13 @@ class Status_forms(ModelForm):
         }
 
 class Status_namage(forms.Form):
+
+    block_choice = forms.ModelChoiceField(
+        queryset=Block.objects.none(),
+        required=False,
+        widget=forms.Select(attrs={
+            'class':"form-select"}),
+        )
     stat_FROM = forms.ModelChoiceField(
         queryset=Status.objects.none(),
         required=False,
@@ -224,8 +231,11 @@ class Status_namage(forms.Form):
 
     def __init__(self,*args,arkogroup=None,**kwargs):
         super().__init__(*args,**kwargs)
-        choice= arkogroup.status_set.all()
+        choice= arkogroup.status_set.all().order_by('sort_no')
+        choice_b =arkogroup.block_set.all().order_by('sort_no')
         if choice:
+            self.fields['block_choice'].queryset = choice_b
+            self.fields['block_choice'].empty_label = 'すべて'
             self.fields['stat_FROM'].queryset = choice
             self.fields['stat_FROM'].empty_label = 'クリア'
             self.fields['stat_TO'].queryset = choice

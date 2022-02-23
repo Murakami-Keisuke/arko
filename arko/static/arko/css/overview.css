@@ -1,0 +1,21 @@
+.levelgage{
+    height: 30px;
+    width: 300px;
+    border: 1px grey solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.gageelm{
+    height:100%;
+    float: right;
+    /* border-right: 1px lightgrey solid; */
+}
+
+td{
+    vertical-align: bottom;
+}
+
+th{
+    vertical-align: middle;
+}

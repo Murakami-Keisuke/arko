@@ -1,0 +1,61 @@
+{% extends 'arko/settings/base_setting.html' %}
+
+
+{% load widget_tweaks %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'arko/css/overview.css' %}">
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+<div class="float-start pt-2 ps-5" style="width: calc(100% - 200px); min-width: 1160px;">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="#" style="color:#444941;">ダッシュボード</a></li>
+            <li class="breadcrumb-item">グループ設定</li>
+            <li class="breadcrumb-item">オーバービュー</li>
+        </ol>
+    </nav>
+</div>
+<div class="float-start pt-3 ps-5" style="width:70%;margin-bottom: 50px;">
+    <p class="fs-2">{{arkogroup}}のコンテンツオーバービュー</p>
+    <p><i class="bi bi-bell-fill"></i>ステータスの一括変更は「ステータス管理」画面から行ってください。</p>
+    <table class="table">
+        <tr>
+            <th rowspan="2">ブロック</th>
+            <th rowspan="2">カード数</th>
+            <th rowspan="2">ルーム数</th>
+            
+                <th colspan="2">最終更新日時からの経過日数</th>
+                <th rowspan="2">ステータス内訳</th>
+                <tr> <th>平均</th> <th>最大</th>  </tr>
+                
+            
+            
+        </tr>
+    {% for i in blockdata %}
+    <tr>
+        <td>{{i.blockname}}</td>
+        <td>{{i.card_count}}</td>
+        <td>{{i.room_count}}</td>
+        <td>{{i.timedelta}}</td>
+        <td>{{i.timedelta_max}}</td>
+        <td>
+            <div class="levelgage">
+            {% for j in i.statusdata %}
+                <div class="gageelm" style="width:{{j.count}}; background-color:{{j.color}};"></div>
+            {% endfor %}
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+   </table>
+</div>
+{% comment %} <script src="{% static 'arko/js/userlist.js' %}"></script> {% endcomment %}
+{% endblock %}

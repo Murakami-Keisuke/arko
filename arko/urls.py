@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views_auth
-from .views_setting import Group_top, Invitation,ArkouserList,StatusList,HistoryListView
+from .views_setting import Group_top, Invitation,ArkouserList,StatusList,HistoryListView,Overview
 from .views_main import Dashboard, Project
 from . import views_main
 
@@ -21,6 +21,7 @@ urlpatterns = [
     path('<arkogroup>/userlist/', ArkouserList.as_view(), name='userlist'),
     path('<arkogroup>/statuslist/', StatusList.as_view(), name='statuslist'),
     path('<arkogroup>/historylist/', HistoryListView.as_view(), name='historylist'),
+    path('<arkogroup>/overview/', Overview.as_view(), name='overview'),
 
     path('dashboard/', Dashboard.as_view(), name='dashboard'),
     path('project/', Project.as_view(), name='project'),
