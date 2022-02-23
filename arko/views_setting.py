@@ -322,6 +322,8 @@ class HistoryListView(UserPassesTestMixin,ListView):
         context['current_page']= '.historylist'
         return context
 
+
+
 class Overview(UserPassesTestMixin,View):
     def __init__(self):
         super().__init__()
@@ -334,7 +336,7 @@ class Overview(UserPassesTestMixin,View):
         arkogroup_obj=Arkouser.objects.get(id=request.user.id).arkogroup
 
         blocks = arkogroup_obj.block_set.all().order_by('sort_no')
-        status = arkogroup_obj.status_set.all().order_by('sort_no')
+        status = arkogroup_obj.status_set.all().order_by('-sort_no')
         blockdata= []
 
         for block in blocks:

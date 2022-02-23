@@ -4,6 +4,13 @@
 <div>
    <h3>グループのアカウント設定</h3>
    <p>グループの名前とパスワードを変更する</p>
+   {% if arkogroup == 'デモストレーション' %}
+      <p>
+         <div class="alert alert-danger mt-2" role="alert"><i class="bi bi-exclamation-triangle"></i>
+            デモストレーショングループは変更できません
+         </div>
+      </p>
+   {% else %}
    <form method="post">
       {% csrf_token %}
 
@@ -12,6 +19,7 @@
    <span style="color:gray;font-size: 14px;">8文字以上15文字以内。半角英数字と記号_-@ のみ入力可能.</span>
    <p class="mt-2"><input class="btn btn-outline-primary" type="submit" value="保存"></p>
    </form>
+   {% endif %}
    <a href="{% url 'group_top' arkogroup %}">
    <button class="btn btn-danger" >グループ設定に戻る</button>
    </a>
