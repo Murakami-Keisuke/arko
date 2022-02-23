@@ -346,10 +346,16 @@ class Overview(UserPassesTestMixin,View):
             
             if rooms:
                 delta_list=[]
+                count = 0
                 for room in rooms:
+                    if room.stat:
+                        if room.stat.disable==True:
+                            continue
                     delta_list.append(timezone.now()-room.update_at)
+                    count += 1
+                print('count',count)
                 # print(delta_list)
-                delta_avr= sum(delta_list,timedelta()) / room_count
+                delta_avr= sum(delta_list,timedelta()) / count
                 delta_avr = str(delta_avr.days)+'日'
                 delta_max=str(max(delta_list).days)+'日'
             else:
