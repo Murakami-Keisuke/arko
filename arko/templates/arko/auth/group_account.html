@@ -4,7 +4,7 @@
 <div>
    <h3>グループのアカウント設定</h3>
    <p>グループの名前とパスワードを変更する</p>
-   {% if arkogroup == 'デモストレーション' %}
+   {% if arkogroup.name == 'デモストレーション' %}
       <p>
          <div class="alert alert-danger mt-2" role="alert"><i class="bi bi-exclamation-triangle"></i>
             デモストレーショングループは変更できません
