@@ -17,7 +17,24 @@
         </div>
     </div>
     <p><a href="{% url 'project' %}" class="btn btn-primary" style="width:80%;margin-left:10%;">プロジェクトを始める</a> </p>
-    <span class="fs-5">最近の履歴</span>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            ステータスの見方
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <div class="statsample" style="border-left:8px #eeeeee solid;">クリア</div>
+            {% for i in statset %}
+            <div class="statsample" style="border-left:8px {{i.color}} solid;">{{i.name}}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="mt-3 fs-5">最近の履歴</p>
     {% for i in history %}
     <div style="
       margin:5px;
@@ -30,6 +47,15 @@
     {% empty %}
     <p>まだ履歴はありません。</p>
     {% endfor %}
-    
+
+    <style>
+
+      .statsample{
+        padding:10px;
+        margin-bottom:10px;
+        border:1px lightgray solid;
+        font-weight:bold;
+      }
+    </style>
 </div>
 {% endblock %}

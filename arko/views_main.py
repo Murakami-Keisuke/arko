@@ -26,6 +26,7 @@ class Dashboard(LoginRequiredMixin, View):
 
     def get(self, request):
         arkouser= Arkouser.objects.get(id=request.user.id)
+        arkogroup_obj=arkouser.arkogroup
 
         history = History.objects.filter(room__card__block__arkogroup=arkouser.arkogroup)
         history = history.filter(create_at__lte=timezone.now()-timedelta(days=30))
@@ -42,7 +43,13 @@ class Dashboard(LoginRequiredMixin, View):
                 string2= f"{timezone.localtime(i.create_at).strftime('%y-%m-%d %H:%M')} /{i.choice_stat} "
                 elm = {'content':string1,'value':string2}
                 valueset.append(elm)
-        context={'current':'.dashboard','history':valueset}
+
+        statset = arkogroup_obj.status_set.all().order_by('sort_no')
+        context={
+            'current':'.dashboard',
+            'history':valueset,
+            'statset':statset,
+            }
         return render(request,"arko/main/dashboard.html",context)
 
 
