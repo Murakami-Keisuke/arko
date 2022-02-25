@@ -131,7 +131,7 @@ class Roomdraw extends React.Component {
       if (i.stat_id) {
         color = statusvalue.querySelector('#stat_' + i.stat_id).value;
         isban = statusvalue.querySelector('#stat_' + i.stat_id).getAttribute('isban');
-        console.log("isban" + isban);
+        // console.log("isban" + isban);
       }
 
       let date = Date.parse(i.update_at);
@@ -305,7 +305,7 @@ class Missiondraw extends React.Component {
     if (j.stat_id) {
       color = statusvalue.querySelector('#stat_' + j.stat_id).value;
       isban = statusvalue.querySelector('#stat_' + j.stat_id).getAttribute('isban');
-      console.log("isban" + isban);
+      // console.log("isban" + isban);
     }
 
     let date = Date.parse(j.update_at);
@@ -398,7 +398,7 @@ const historyAPI = (e, csrf_token) => {
   fetch(url, param)
     .then(response => response.json())
     .then((data) => {
-      console.log('change success');
+      console.log('change success at history_API()');
     }).catch((reason) => {
       console.log(reason);
       alert('通信に失敗しました。もう一度お試しください。');

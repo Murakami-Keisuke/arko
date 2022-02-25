@@ -238,7 +238,7 @@ var Roomdraw = function (_React$Component2) {
         if (i.stat_id) {
           color = statusvalue.querySelector('#stat_' + i.stat_id).value;
           isban = statusvalue.querySelector('#stat_' + i.stat_id).getAttribute('isban');
-          console.log("isban" + isban);
+          // console.log("isban" + isban);
         }
 
         var date = Date.parse(i.update_at);
@@ -560,7 +560,7 @@ var Missiondraw = function (_React$Component4) {
       if (j.stat_id) {
         color = statusvalue.querySelector('#stat_' + j.stat_id).value;
         isban = statusvalue.querySelector('#stat_' + j.stat_id).getAttribute('isban');
-        console.log("isban" + isban);
+        // console.log("isban" + isban);
       }
 
       var date = Date.parse(j.update_at);
@@ -687,7 +687,7 @@ var historyAPI = function historyAPI(e, csrf_token) {
   fetch(url, param).then(function (response) {
     return response.json();
   }).then(function (data) {
-    console.log('change success');
+    console.log('change success at history_API()');
   }).catch(function (reason) {
     console.log(reason);
     alert('通信に失敗しました。もう一度お試しください。');

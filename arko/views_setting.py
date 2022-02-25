@@ -101,7 +101,7 @@ class Group_top(UserPassesTestMixin,View):
                 card= request.POST['formset_room']
                 if int(card):
                     card_obj = Card.objects.get(id=card)
-                    stat_choise=Status.objects.none()
+                    stat_choise=None
                     # stat_choise= arkogroup_obj.status_set.all().order_by('sort_no').first()
                     Room.objects.create(card=card_obj,sort_no=sort_no)
             
@@ -344,17 +344,16 @@ class Overview(UserPassesTestMixin,View):
             rooms = Room.objects.filter(card__block=block)
             room_count = rooms.count()
             
-            if rooms:
-                delta_list=[]
-                count = 0
-                for room in rooms:
-                    if room.stat:
-                        if room.stat.disable==True:
-                            continue
-                    delta_list.append(timezone.now()-room.update_at)
-                    count += 1
-                print('count',count)
-                # print(delta_list)
+            delta_list=[]
+            count = 0
+            for room in rooms:
+                if room.stat:
+                    if room.stat.disable==True:
+                        continue
+                delta_list.append(timezone.now()-room.update_at)
+                count += 1
+
+            if count:
                 delta_avr= sum(delta_list,timedelta()) / count
                 delta_avr = str(delta_avr.days)+'日'
                 delta_max=str(max(delta_list).days)+'日'
@@ -365,7 +364,7 @@ class Overview(UserPassesTestMixin,View):
             statusdata=[]
             for j in status:
                 if room_count:
-                    stat_count = int(rooms.filter(stat=j).count()/room_count *100)
+                    stat_count = round(rooms.filter(stat=j).count()/room_count *100)
                 else:
                     stat_count =0
                 stat_elm ={

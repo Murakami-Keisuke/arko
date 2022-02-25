@@ -58,6 +58,8 @@
             <input type="button" class="btn btn-outline-primary" name="savebtn" value="編集">
             <input type="button" class="btn btn-outline-primary" name="addbtn" value="ステータスを追加">
             <p>[アクセス禁止]のステータスを設定すると、メンバーはそのコンテンツを変更できなくなります。</p>
+            <p>[選択不可]のステータスを設定すると、「プロジェクト」ページの選択肢に表示されなくなります。 <br>
+                また、そのコンテンツは「オーバービュー」の”最終更新日時からの経過日数”には反映されません。</p>
             <input type="hidden" name="addnew_sort_no" value="">
 
             {% csrf_token %}
@@ -112,11 +114,11 @@
             <p>
                 次のブロックの
                 {{status_manage_forms.block_choice}}
-                ステータスが
+                ステータスが次のもので、
                 {{status_manage_forms.stat_FROM}}
-                のもので、最終更新日時から <br>
+                最終更新日時から <br>
                 {{status_manage_forms.date_delta}}
-                日（0=すべて）以上<br> 経過しているものを、
+                日以上（0=すべて指定）<br> 経過しているものを、
                 次のステータスに変更する。
                 {{status_manage_forms.stat_TO}}
 

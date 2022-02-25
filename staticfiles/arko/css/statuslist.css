@@ -101,6 +101,6 @@ input[type='text']:disabled{
     display:none;
 }
 
-input[type='button']{
+form > .btn{
     margin-bottom: 20px;
 }
