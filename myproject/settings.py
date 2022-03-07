@@ -22,8 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-qw90a-!$vvuh^di$1a6b*s2opqsf99kvgyl_l!6bl2)5v@!^(+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
@@ -153,6 +151,8 @@ except ImportError:
 if not DEBUG:
     import django_heroku
     django_heroku.settings(locals())
+
+    SECRET_KEY = os.environ['SECRET_KEY']
 
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
