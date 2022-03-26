@@ -29,7 +29,7 @@ class Dashboard(LoginRequiredMixin, View):
         arkogroup_obj=arkouser.arkogroup
 
         history = History.objects.filter(room__card__block__arkogroup=arkouser.arkogroup)
-        history = history.filter(create_at__lte=timezone.now()-timedelta(days=30))
+        history = history.filter(create_at__lte=timezone.now()-timedelta(days=120))
         history.delete()
 
         hist_qset= arkouser.history_set.all().order_by('create_at').reverse()[:7]
