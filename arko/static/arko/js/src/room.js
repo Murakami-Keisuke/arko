@@ -32,6 +32,10 @@ class Roomdraw extends React.Component {
             this.loading.style.display = "none";
             });
 
+        }else{
+            this.loading.style.display = "none";
+            this.page_card.classList.remove('page_show');
+            this.page_room.classList.add('page_show');
         }
       
     }

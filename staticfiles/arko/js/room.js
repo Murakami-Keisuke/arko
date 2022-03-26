@@ -48,6 +48,10 @@ var Roomdraw = function (_React$Component) {
           alert('通信に失敗しました。もう一度お試しください。(ルーム情報取得失敗)');
           _this2.loading.style.display = "none";
         });
+      } else {
+        this.loading.style.display = "none";
+        this.page_card.classList.remove('page_show');
+        this.page_room.classList.add('page_show');
       }
     }
   }, {

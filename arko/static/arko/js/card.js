@@ -45,6 +45,8 @@ var Carddraw = function (_React$Component) {
           alert('通信に失敗しました。もう一度お試しください。(カード情報取得失敗)');
           _this2.loading.style.display = "none";
         });
+      } else {
+        this.loading.style.display = "none";
       }
     }
   }, {
